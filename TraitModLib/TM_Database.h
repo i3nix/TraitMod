@@ -6,6 +6,9 @@
 #define TM_DEFAULT_MYSQL_LOGIN "root"
 #define TM_DEFAULT_MYSQL_PASSWORD "qwe123rty456"
 
+/*
+This class provides an interface for working with MySQL databases, using X DevAPI
+*/
 class TM_Database
 {
 public:

@@ -3,7 +3,7 @@
 #include "TM_Traits.h"
 
 /*
-Each character has a fixed list of traits, for example, "brave-coward"
+This class holds an information about a single character
 */
 class TM_Character
 {

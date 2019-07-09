@@ -1,6 +1,5 @@
 /*
 TODO:
-CreateCharacter() - maybe possible to make better insert(...)
 */
 
 #include "TM_CharacterDatabase.h"
@@ -26,7 +25,7 @@ TM_CharacterDatabase::~TM_CharacterDatabase()
 void TM_CharacterDatabase::CreateCharacter(const char* name)
 {
 	try{
-		mTable->insert("name","bravery").values(name, 0).execute();
+		mTable->insert("name").values(name).execute();
 	}
 	catch(mysqlx::Error e)
 	{
@@ -62,11 +61,11 @@ const TM_Character& TM_CharacterDatabase::GetCharacter(const char* name)
 	try{
 		TM_Character character;
 		std::map<std::string,int> traits;
-		mysqlx::RowResult res = mTable->select().where("name like :name").bind("name",name).execute();
 		for(int t = 0; t < TM_TraitCount; t++)
 		{
+			mysqlx::RowResult res = mTable->select(TM_TraitNames[t]).where("name like :name").bind("name",name).execute();
 			mysqlx::Row x = res.fetchOne();
-			traits[TM_TraitNames[t]] = x[t + 2];
+			traits[TM_TraitNames[t]] = x[0];
 		}
 		character.SetTraits(traits);
 		character.SetName(name);
@@ -76,4 +75,10 @@ const TM_Character& TM_CharacterDatabase::GetCharacter(const char* name)
 	{
 		throw e.what();
 	}
+}
+
+int main()
+{
+	system("pause");
+	return 0;
 }

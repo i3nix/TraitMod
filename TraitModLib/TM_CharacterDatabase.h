@@ -1,8 +1,12 @@
 #pragma once
 
+
 #include "TM_Database.h"
 #include "TM_Character.h"
 
+/*
+This class accesses the table of characters in MySQL database
+*/
 class TM_CharacterDatabase : public TM_Database
 {
 public:

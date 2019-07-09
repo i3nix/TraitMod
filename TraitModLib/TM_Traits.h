@@ -8,24 +8,19 @@ Each trait:										Example:
 - have a scale between sides (-1000 : 1000):	-1000 - coward, 1000 - brave
 Initialisation sets up the names of a trait and sides. A scale sets to zero.
 */
-const unsigned int TM_TraitCount = 1;
+
+const unsigned int TM_TraitCount = 2;
 const std::string TM_TraitNames[] = {
-	"bravery"
+	"bravery",
+	"industry"
 };
-
-class TM_Trait
+const std::string TM_TraitPositiveSides[] = 
 {
-public:
-	TM_Trait();
-	~TM_Trait();
-
-	//Creates a new trait
-	void Create(std::string name, std::string side1, std::string side2);
-	//Loads an existing trait
-	void Load(std::string name);
-private:
-	std::string mName;
-	std::string mSide1;
-	std::string mSide2;
-	int			mScale;
+	"brave",
+	"industrious"
+};
+const std::string TM_TraitNegativeSides[] = 
+{
+	"coward",
+	"lazy"
 };
