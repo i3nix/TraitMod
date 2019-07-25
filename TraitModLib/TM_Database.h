@@ -1,26 +1,39 @@
 #pragma once
 #include <mysqlx/xdevapi.h>
 
-#define TM_DEFAULT_MYSQL_HOST "localhost"
-#define TM_DEFAULT_MYSQL_PORT 33060
-#define TM_DEFAULT_MYSQL_LOGIN "root"
-#define TM_DEFAULT_MYSQL_PASSWORD "qwe123rty456"
+#include "TM_IDatabase.h"
 
-/*
-This class provides an interface for working with MySQL databases, using X DevAPI
-*/
-class TM_Database
-{
-public:
-							TM_Database();
-							~TM_Database();
-protected:
-	void					Connect(const char* host, int port, const char* login, const char* pass);
-	void					Disconnect();
-	void					SetDatabase(const char* name);
-	void					SetTable(const char* name);
-	mysqlx::Table			*mTable;
-private:
-	mysqlx::Session			*mSession;
-	mysqlx::Schema			*mDatabase;
+namespace TMLib
+	{
+	#define TM_DEFAULT_MYSQL_HOST "localhost"
+	#define TM_DEFAULT_MYSQL_PORT 33060
+	#define TM_DEFAULT_MYSQL_LOGIN "root"
+	#define TM_DEFAULT_MYSQL_PASSWORD "qwe123rty456"
+
+	/*
+	This class works with MySQL databases, using X DevAPI
+	*/
+	class TM_Database : public TM_IDatabase
+	{
+	public:
+								TM_Database(TM_ILogger& logger);
+								~TM_Database();
+		void					Connect(const char* host, int port, const char* login, const char* pass);
+		void					Disconnect();
+		void					SetDatabase(const char* name);
+		void					SetTable(const char* name);
+
+		void					AddRowByString(const char* field, const char* value);
+		void					RemoveRowByString(const char* field, const char* value);
+
+		void					ChangeInteger(const char* keyfield, const char* keyvalue, const char* field, const int value);
+
+		int						GetInteger(const char* keyfield, const char* keyvalue, const char* field);
+	private:
+		mysqlx::Table			*mTable;
+		mysqlx::Session			*mSession;
+		mysqlx::Schema			*mDatabase;
+
+		const std::string		GenerateWhere(const char* field) const;
+	};
 };
