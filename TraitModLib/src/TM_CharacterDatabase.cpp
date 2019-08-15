@@ -8,7 +8,7 @@ TODO:
 
 namespace TMLib
 {
-	TM_CharacterDatabase::TM_CharacterDatabase(TM_ILogger& logger) : TM_Database(logger)
+	TM_CharacterDatabase::TM_CharacterDatabase()
 	{
 	}
 
@@ -29,12 +29,13 @@ namespace TMLib
 		}
 	}
 
-	void TM_CharacterDatabase::ChangeCharacter(const TM_Character &character)
+	void TM_CharacterDatabase::ChangeCharacter(const std::shared_ptr<TM_Character> &character)
 	{
 		try
 		{
 			for(int t = 0; t < TM_TraitCount; t++)
-				ChangeInteger("name",character.GetName(),TM_TraitNames[t].c_str(),character.GetTrait(TM_TraitNames[t].c_str()));
+				ChangeInteger("name",character->GetName().c_str(),TM_TraitNames[t].c_str(),character->GetTrait(TM_TraitNames[t].c_str()));
+			
 		}
 		catch(TM_Exception e)
 		{
@@ -56,9 +57,9 @@ namespace TMLib
 		}
 	}
 
-	TM_Character* TM_CharacterDatabase::GetCharacter(const char* name)
+	std::shared_ptr<TM_Character> TM_CharacterDatabase::GetCharacter(const char* name)
 	{
-		TM_Character* character = new TM_Character();
+		std::shared_ptr<TM_Character> character = std::make_shared<TM_Character>();
 		std::map<std::string,int> traits;
 		try
 		{

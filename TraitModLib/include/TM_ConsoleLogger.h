@@ -16,6 +16,8 @@ namespace TMLib
 		TM_ILogger&					operator<<(const char* str);
 		TM_ILogger&					operator<<(const int value);
 		//Returns a reference to a static TM_ConsoleLogger
-		static TM_ConsoleLogger&	Get();
+		static TM_ConsoleLogger&	GetDefaultLogger();
+	private:
+		static TM_ConsoleLogger		mCLogger;
 	};
 };

@@ -15,12 +15,12 @@ namespace TMLib
 	class TM_CharacterDatabase : public TM_Database
 	{
 	public:
-									TM_CharacterDatabase(TM_ILogger& logger);
-									~TM_CharacterDatabase();
-		void						CreateCharacter(const char* name);
-		void						ChangeCharacter(const TM_Character &character);
-		void						DeleteCharacter(const char* name);
-		TM_Character*				GetCharacter(const char* name);
+													TM_CharacterDatabase();
+													~TM_CharacterDatabase();
+		void										CreateCharacter(const char* name);
+		void										ChangeCharacter(const std::shared_ptr<TM_Character> &character);
+		void										DeleteCharacter(const char* name);
+		std::shared_ptr<TM_Character>				GetCharacter(const char* name);
 	private:
 	};
 };

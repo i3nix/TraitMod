@@ -23,9 +23,10 @@ namespace TMLib
 		return *this;
 	}
 
-	TM_ConsoleLogger& TM_ConsoleLogger::Get()
+	TM_ConsoleLogger& TM_ConsoleLogger::GetDefaultLogger()
 	{
-		static TM_ConsoleLogger clogger;
-		return clogger;
+		return mCLogger;
 	}
+
+	TM_ConsoleLogger TM_ConsoleLogger::mCLogger = TM_ConsoleLogger();
 };
